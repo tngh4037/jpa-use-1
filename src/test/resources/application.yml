@@ -1,0 +1,20 @@
+# spring boot 는 별도의 설정이 없으면 기본적으로 메모리 모드로 수행한다.
+# spring:
+#   datasource:
+#     url: jdbc:h2:mem:test # In-Memory mode
+#     username: sa
+#     password:
+#     driver-class-name: org.h2.Driver
+
+#   jpa:
+#     hibernate:
+#       ddl-auto: create # 참고) spring boot 는 기본적으로 create-drop 으로 돌아간다.
+#     properties:
+#       hibernate:
+# #        show_sql: true
+#         format_sql: true
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.orm.jdbc.bind: trace

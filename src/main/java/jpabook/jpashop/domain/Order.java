@@ -22,7 +22,7 @@ public class Order {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    private Member member;
+    private Member member; // jackson 라이브러리는 지연 로딩시 생성되는 프록시 객체를 json 으로 어떻게 생성해야 하는지 모름 (따라서 Order 엔티티를 직접 반환하게 되면 예외 발생) - 참고) Hibernate5JakartaModule 를 스프링 빈으로 등록하면 해결할 수는 있다. But, 이런 방법보다는 그냥 애초에 엔티티를 외부에 노출하지 않는게 좋다.
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();

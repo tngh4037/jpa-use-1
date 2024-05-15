@@ -15,4 +15,4 @@ spring:
 logging:
   level:
     org.hibernate.SQL: debug
-    org.hibernate.orm.jdbc.bind: trace
+#    org.hibernate.orm.jdbc.bind: trace # p6spy 라이브러리를 넣어서 파라미터 바인딩된 쿼리가 보이니까 제외했다.

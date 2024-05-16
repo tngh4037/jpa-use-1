@@ -6,6 +6,8 @@ import jpabook.jpashop.domain.OrderItem;
 import jpabook.jpashop.domain.OrderStatus;
 import jpabook.jpashop.repository.OrderRepository;
 import jpabook.jpashop.repository.OrderSearch;
+import jpabook.jpashop.repository.order.query.OrderQueryDto;
+import jpabook.jpashop.repository.order.query.OrderQueryRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +23,7 @@ import java.util.stream.Collectors;
 public class OrderApiController {
 
     private final OrderRepository orderRepository;
+    private final OrderQueryRepository orderQueryRepository;
 
     @GetMapping("/api/v1/orders")
     public List<Order> ordersV1() {
@@ -112,7 +115,7 @@ public class OrderApiController {
         // 1) (데이터 뻥튀기 문제가 없는) xxxToOne 관계에 한해서만 모두 fetch join 한다. (컬렉션은 지연로딩)
         // : order( only xxxToOne fetch join ) -> orderItem -> item(2) -> orderItem -> item(2)
         //                                     ㄴ LAZY
-        
+
         // 1) 으로만 하면 N+1 문제가 발생한다. 이 문제를 완전히 해결할 수는 없지만 최적화는 할 수는 있다. (아래 참고)
 
         // 2) batch size 를 설정 (최적화)
@@ -126,6 +129,12 @@ public class OrderApiController {
         // 결론) xxxToOne 관계는 페치 조인으로 쿼리 수를 최대한 줄이고, 나머지는 default_batch_fetch_size 로 최적화 하자.
 
         return result;
+    }
+
+    // jpa 에서 dto 직접 조회
+    @GetMapping("/api/v4/orders")
+    public List<OrderQueryDto> ordersV4() {
+        return orderQueryRepository.findOrderQueryDtos();
     }
 
 }

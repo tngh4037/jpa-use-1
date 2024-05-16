@@ -34,7 +34,8 @@ class MemberServiceTest {
 
         // when
         Long savedId = memberService.join(member);
-        Member findMember = memberRepository.findOne(savedId);
+        // Member findMember = memberRepository.findOne(savedId);
+        Member findMember = memberRepository.findById(savedId).get();
 
         // then
         em.flush();

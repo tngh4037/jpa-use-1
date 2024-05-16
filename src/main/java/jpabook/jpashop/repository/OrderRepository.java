@@ -101,4 +101,13 @@ public class OrderRepository {
                 " join fetch o.member m" +
                 " join fetch o.delivery d", Order.class).getResultList();
     }
+
+    public List<Order> findAllWithItem() {
+        return em.createQuery(
+                "select distinct o from Order o" + // 참고) 하이버네이트6부터는 DISTINCT 명령어를 사용하지 않아도 애플리케이션에서 중복 제거가 자동으로 적용됨
+                " join fetch o.member m" +
+                " join fetch o.delivery d" +
+                " join fetch o.orderItems oi" + // (xxxToMany 관계) 데이터 뻥튀기 occurred ! => 쿼리 결과로만 보면 주문 데이터가 2건이 아닌 4건이 조회됨
+                " join fetch oi.item i", Order.class).getResultList();
+    }
 }

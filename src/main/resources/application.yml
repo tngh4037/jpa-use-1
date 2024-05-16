@@ -11,6 +11,7 @@ spring:
       hibernate:
 #        show_sql: true
         format_sql: true
+        default_batch_fetch_size: 100 # 글로벌 설정 (in 쿼리에 적용할 갯수 지정) (참고. 김영한님은 개별 설정(@BatchSize) 보다는 글로벌 설정을 주로 활용한다고 함.)
 
 logging:
   level:

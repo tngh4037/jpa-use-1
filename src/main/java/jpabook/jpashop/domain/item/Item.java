@@ -11,6 +11,7 @@ import java.util.List;
 
 import static jakarta.persistence.InheritanceType.SINGLE_TABLE;
 
+// @BatchSize(size = 1000) // 참고) @BatchSize 는 컬렉션의 경우 컬렉션 필드에, 엔티티의 경우 클래스 레벨에 적용
 @Entity
 @Getter @Setter
 @Inheritance(strategy = SINGLE_TABLE)

@@ -110,4 +110,14 @@ public class OrderRepository {
                 " join fetch o.orderItems oi" + // (xxxToMany 관계) 데이터 뻥튀기 occurred ! => 쿼리 결과로만 보면 주문 데이터가 2건이 아닌 4건이 조회됨
                 " join fetch oi.item i", Order.class).getResultList();
     }
+
+    public List<Order> findAllWithMemberDelivery(int offset, int limit) {
+        return em.createQuery(
+                        "select o from Order o" +
+                                " join fetch o.member m" +
+                                " join fetch o.delivery d", Order.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+    }
 }
